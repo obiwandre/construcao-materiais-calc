@@ -1,0 +1,84 @@
+{
+  "fabricante": {
+    "nome": "Blocok São Paulo",
+    "descricao": "Paredes Prontas - Sistema construtivo pré-fabricado",
+    "site": "www.blocoksaopaulo.com.br",
+    "telefone": "(11) 93068-9990",
+    "instagram": "@blocoksaopaulo",
+    "endereco": "Rua Pedro Vaz Coelho, 935, Caucaia do Alto, Cotia, SP - CEP 06727-180",
+    "catalogo": "catalogos/blocok-saopaulo-2025.pdf"
+  },
+  "material": {
+    "nome": "Blocok",
+    "composicao": "Placa de EPS (isopor) industrial tipo F antichama + placas de microconcreto de 1,5cm",
+    "resistencia": "12 MPa",
+    "carga_suspensa": "120kg",
+    "normas": ["ABNT NBR 15575", "ABNT NBR 11675", "ABNT NBR 16868"]
+  },
+  "blocos": [
+    {
+      "id": 1,
+      "nome": "Blocok 10",
+      "largura_cm": 90,
+      "altura_cm": 90,
+      "espessura_total_cm": 10,
+      "espessura_eps_cm": 7,
+      "peso_kg": 46,
+      "carga_m2_pronto_kgf": 55,
+      "preco_avista": 97.75,
+      "preco_original": 102.90,
+      "aplicacao": "Divisórias internas, substituindo alvenaria convencional, paredes de gesso cartonado",
+      "tubulacao_max_mm": 60,
+      "coluna_max_cm": null,
+      "observacoes": "Não recomendável embutimento de estrutura"
+    },
+    {
+      "id": 2,
+      "nome": "Blocok 13",
+      "largura_cm": 90,
+      "altura_cm": 90,
+      "espessura_total_cm": 13,
+      "espessura_eps_cm": 10,
+      "peso_kg": 46,
+      "carga_m2_pronto_kgf": 70,
+      "preco_avista": 105.45,
+      "preco_original": 111.00,
+      "aplicacao": "Divisórias internas e externas, substituindo alvenaria de tijolo e blocos de concreto",
+      "tubulacao_max_mm": 90,
+      "coluna_max_cm": 8,
+      "observacoes": null
+    },
+    {
+      "id": 3,
+      "nome": "Blocok 15",
+      "largura_cm": 90,
+      "altura_cm": 90,
+      "espessura_total_cm": 15,
+      "espessura_eps_cm": 12,
+      "peso_kg": 46,
+      "carga_m2_pronto_kgf": 80,
+      "preco_avista": 112.95,
+      "preco_original": 118.90,
+      "aplicacao": "Vedação externa e interna, substituindo alvenaria de tijolo e blocos de concreto",
+      "tubulacao_max_mm": 120,
+      "coluna_max_cm": 10,
+      "observacoes": null
+    },
+    {
+      "id": 4,
+      "nome": "Blocok 20",
+      "largura_cm": 90,
+      "altura_cm": 90,
+      "espessura_total_cm": 20,
+      "espessura_eps_cm": 17,
+      "peso_kg": 46,
+      "carga_m2_pronto_kgf": 110,
+      "preco_avista": 130.61,
+      "preco_original": 137.49,
+      "aplicacao": "Vedação externa e interna, substituindo alvenaria de tijolo e blocos de concreto",
+      "tubulacao_max_mm": 150,
+      "coluna_max_cm": 15,
+      "observacoes": null
+    }
+  ]
+}

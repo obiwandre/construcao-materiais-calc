@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Blocok - Materiais de Construção</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(30, 60, 114, 0.4);
+        }
+
+        .resultado {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #2a5298;
+        }
+
+        .resultado.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .resultado h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .resultado-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .resultado-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .resultado-item .valor {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .resultado-item .label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .comparativo {
+            margin-top: 30px;
+        }
+
+        .comparativo table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparativo th, .comparativo td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparativo th {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .comparativo tr:hover {
+            background: #f5f5f5;
+        }
+
+        .comparativo .destaque {
+            background: #e8f4e8 !important;
+            font-weight: bold;
+        }
+
+        .info-bloco {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #1565c0;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calculadora Blocok</h1>
+            <p>Calcule a quantidade de blocos para sua parede</p>
+        </header>
+
+        <div class="card">
+            <h2>Dimensoes da Parede</h2>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="largura">Largura (metros)</label>
+                    <input type="number" id="largura" placeholder="Ex: 3.0" step="0.1" min="0.1" value="3">
+                </div>
+                <div class="form-group">
+                    <label for="altura">Altura (metros)</label>
+                    <input type="number" id="altura" placeholder="Ex: 2.8" step="0.1" min="0.1" value="3">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="bloco">Tipo de Bloco</label>
+                <select id="bloco">
+                    <option value="0">Comparar todos os tipos</option>
+                    <option value="1">Blocok 10 (10cm) - Divisorias internas</option>
+                    <option value="2">Blocok 13 (13cm) - Internas e externas</option>
+                    <option value="3">Blocok 15 (15cm) - Vedacao externa/interna</option>
+                    <option value="4">Blocok 20 (20cm) - Vedacao externa/interna</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="calcular()">Calcular</button>
+
+            <div id="resultado" class="resultado">
+                <!-- Resultado sera inserido aqui -->
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Sobre o Blocok</h2>
+            <p>Sistema construtivo pre-fabricado que substitui a alvenaria convencional. Composto por placa de EPS (isopor) industrial com tecnologia antichama + placas de microconcreto de 1,5cm.</p>
+
+            <div class="info-bloco">
+                <strong>Vantagens:</strong> Isolamento termico e acustico, protecao antichama, resistencia de 12 MPa, sem risco de trincas e fissuras. Tempo de montagem: 24min para 4m2 (vs 1h15min com tijolo).
+            </div>
+        </div>
+
+        <footer>
+            <p>Dados do catalogo Blocok Sao Paulo 2025</p>
+            <p><a href="https://www.blocoksaopaulo.com.br" target="_blank">www.blocoksaopaulo.com.br</a> | (11) 93068-9990</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dados dos blocos (carregados estaticamente para funcionar sem backend)
+        const blocos = [
+            { id: 1, nome: "Blocok 10", espessura: 10, preco: 97.75, peso: 46, aplicacao: "Divisorias internas" },
+            { id: 2, nome: "Blocok 13", espessura: 13, preco: 105.45, peso: 46, aplicacao: "Internas e externas" },
+            { id: 3, nome: "Blocok 15", espessura: 15, preco: 112.95, peso: 46, aplicacao: "Vedacao externa/interna" },
+            { id: 4, nome: "Blocok 20", espessura: 20, preco: 130.61, peso: 46, aplicacao: "Vedacao externa/interna" }
+        ];
+
+        // Area de cada bloco: 90x90cm = 0.81m2
+        const AREA_BLOCO = 0.81;
+
+        function calcular() {
+            const largura = parseFloat(document.getElementById('largura').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const blocoId = parseInt(document.getElementById('bloco').value);
+
+            if (!largura || !altura || largura <= 0 || altura <= 0) {
+                alert('Por favor, informe a largura e altura da parede.');
+                return;
+            }
+
+            const areaParede = largura * altura;
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (blocoId === 0) {
+                // Comparar todos
+                mostrarComparativo(areaParede, largura, altura);
+            } else {
+                // Bloco especifico
+                const bloco = blocos.find(b => b.id === blocoId);
+                mostrarResultadoUnico(areaParede, largura, altura, bloco);
+            }
+
+            resultadoDiv.classList.add('show');
+        }
+
+        function mostrarResultadoUnico(areaParede, largura, altura, bloco) {
+            const quantidade = Math.ceil(areaParede / AREA_BLOCO);
+            const custoTotal = quantidade * bloco.preco;
+            const pesoTotal = quantidade * bloco.peso;
+
+            document.getElementById('resultado').innerHTML = `
+                <h3>Resultado - ${bloco.nome}</h3>
+                <div class="resultado-grid">
+                    <div class="resultado-item">
+                        <div class="valor">${areaParede.toFixed(1)} m2</div>
+                        <div class="label">Area da Parede</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor">${quantidade}</div>
+                        <div class="label">Blocos Necessarios</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor">R$ ${custoTotal.toFixed(2)}</div>
+                        <div class="label">Custo Total</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor">${pesoTotal} kg</div>
+                        <div class="label">Peso Total</div>
+                    </div>
+                </div>
+                <div class="info-bloco" style="margin-top: 20px;">
+                    <strong>Aplicacao:</strong> ${bloco.aplicacao}<br>
+                    <strong>Preco unitario:</strong> R$ ${bloco.preco.toFixed(2)}
+                </div>
+            `;
+        }
+
+        function mostrarComparativo(areaParede, largura, altura) {
+            const quantidade = Math.ceil(areaParede / AREA_BLOCO);
+
+            let linhas = blocos.map(bloco => {
+                const custoTotal = quantidade * bloco.preco;
+                const pesoTotal = quantidade * bloco.peso;
+                return `
+                    <tr>
+                        <td><strong>${bloco.nome}</strong></td>
+                        <td>${bloco.espessura}cm</td>
+                        <td>${quantidade}</td>
+                        <td>R$ ${bloco.preco.toFixed(2)}</td>
+                        <td><strong>R$ ${custoTotal.toFixed(2)}</strong></td>
+                        <td>${pesoTotal} kg</td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('resultado').innerHTML = `
+                <h3>Comparativo - Parede ${largura}m x ${altura}m (${areaParede.toFixed(1)} m2)</h3>
+                <div class="comparativo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Espessura</th>
+                                <th>Qtd</th>
+                                <th>Preco/Un</th>
+                                <th>Total</th>
+                                <th>Peso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${linhas}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info-bloco" style="margin-top: 20px;">
+                    <strong>Dica:</strong> Blocok 10 para divisorias internas simples. Blocok 13+ para paredes externas ou que precisam de tubulacao embutida.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
