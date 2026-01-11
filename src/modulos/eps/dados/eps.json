@@ -1,8 +1,10 @@
 {
   "fabricante": {
-    "nome": "Fábrica EPS Embu-Guaçu",
-    "contato": "Jéssica",
-    "endereco": "Estrada Municipal Basílio Vieira, nº 640 - Congonhal - Embu-Guaçu - CEP 06915020",
+    "nome": "Isoportal",
+    "contato": "Victor",
+    "telefone": "(11) 97572-0094",
+    "site": "https://isoportal.com.br",
+    "endereco": null,
     "prazo_entrega": "2 dias úteis após confirmação",
     "desconto_avista_percent": 3,
     "condicao_pagamento": "50% antecipado via PIX + restante em até 3-5x no crédito"

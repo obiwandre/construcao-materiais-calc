@@ -1,0 +1,37 @@
+{
+  "historico": [
+    {
+      "id": 1,
+      "data": "2025-01-10",
+      "fornecedor_id": 1,
+      "categoria": "blocos",
+      "produtos": [
+        {"produto_id": 1, "nome": "Blocok 10", "preco": 97.75},
+        {"produto_id": 2, "nome": "Blocok 13", "preco": 105.45},
+        {"produto_id": 3, "nome": "Blocok 15", "preco": 112.95},
+        {"produto_id": 4, "nome": "Blocok 20", "preco": 130.61}
+      ],
+      "observacao": "Catálogo 2025"
+    },
+    {
+      "id": 2,
+      "data": "2025-01-10",
+      "fornecedor_id": 2,
+      "categoria": "eps",
+      "produtos": [
+        {"produto_id": 1, "nome": "EPS 30mm", "preco": 7.95, "preco_m2": 15.90},
+        {"produto_id": 2, "nome": "EPS 40mm", "preco": 10.60, "preco_m2": 21.20},
+        {"produto_id": 3, "nome": "EPS 100mm", "preco": 26.50, "preco_m2": 53.00}
+      ],
+      "frete": [
+        {"min": 0, "max": 1000, "valor": null, "obs": "Consultar"},
+        {"min": 1000, "max": 3000, "valor": 960},
+        {"min": 3000, "max": 5000, "valor": 640},
+        {"min": 5000, "max": 8000, "valor": 350},
+        {"min": 8000, "max": null, "valor": 0, "obs": "Frete grátis"}
+      ],
+      "desconto_avista_percent": 3,
+      "observacao": "Orçamento WhatsApp - Victor"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "fornecedores": [
+    {
+      "id": 1,
+      "nome": "Blocok São Paulo",
+      "contato": "Comercial",
+      "telefone": "(11) 93068-9990",
+      "whatsapp": "(11) 93068-9990",
+      "email": null,
+      "site": "https://www.blocoksaopaulo.com.br",
+      "endereco": "Av. Anhanguera, 3526 - Campinas/SP",
+      "categorias": ["blocos"],
+      "ativo": true,
+      "data_cadastro": "2025-01-10"
+    },
+    {
+      "id": 2,
+      "nome": "Isoportal",
+      "contato": "Victor",
+      "telefone": "(11) 97572-0094",
+      "whatsapp": "(11) 97572-0094",
+      "email": null,
+      "site": "https://isoportal.com.br",
+      "endereco": null,
+      "categorias": ["eps"],
+      "ativo": true,
+      "data_cadastro": "2025-01-10"
+    }
+  ]
+}
