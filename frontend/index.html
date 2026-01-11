@@ -203,10 +203,39 @@
         footer a {
             color: white;
         }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .nav a.active {
+            background: white;
+            color: #1e3c72;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <nav class="nav">
+            <a href="index.html" class="active">Blocok</a>
+            <a href="eps.html">EPS Isolamento</a>
+        </nav>
         <header>
             <h1>Calculadora Blocok</h1>
             <p>Calcule a quantidade de blocos para sua parede</p>

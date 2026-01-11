@@ -9,14 +9,15 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from modulos.blocos.calculadora import calcular_blocos, carregar_blocos
+from modulos.eps.calculadora import calcular_eps, carregar_eps
 
 app = FastAPI(
-    title="Calculadora de Materiais - Construção Civil",
+    title="Calculadora de Materiais - Construcao Civil",
     description="API para calcular quantidade de materiais para obras",
-    version="1.0.0"
+    version="1.1.0"
 )
 
-# Servir arquivos estáticos (frontend)
+# Servir arquivos estaticos (frontend)
 FRONTEND_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'frontend')
 if os.path.exists(FRONTEND_PATH):
     app.mount("/static", StaticFiles(directory=FRONTEND_PATH), name="static")
@@ -24,22 +25,24 @@ if os.path.exists(FRONTEND_PATH):
 
 @app.get("/")
 async def home():
-    """Página inicial - serve o frontend"""
+    """Pagina inicial - serve o frontend"""
     index_path = os.path.join(FRONTEND_PATH, "index.html")
     if os.path.exists(index_path):
         return FileResponse(index_path)
     return {"message": "Calculadora de Materiais API", "docs": "/docs"}
 
 
+# ============ BLOCOS ============
+
 @app.get("/api/blocos")
 async def listar_blocos():
-    """Lista todos os blocos disponíveis"""
+    """Lista todos os blocos disponiveis"""
     dados = carregar_blocos()
     return dados
 
 
 @app.get("/api/blocos/calcular")
-async def calcular(largura: float, altura: float, bloco_id: int = 1):
+async def calcular_bloco(largura: float, altura: float, bloco_id: int = 1):
     """
     Calcula quantidade de blocos para uma parede
 
@@ -52,7 +55,7 @@ async def calcular(largura: float, altura: float, bloco_id: int = 1):
 
 
 @app.get("/api/blocos/calcular-todos")
-async def calcular_todos(largura: float, altura: float):
+async def calcular_todos_blocos(largura: float, altura: float):
     """
     Calcula quantidade de blocos para todos os tipos
 
@@ -62,6 +65,41 @@ async def calcular_todos(largura: float, altura: float):
     resultados = []
     for bloco_id in [1, 2, 3, 4]:
         resultado = calcular_blocos(largura, altura, bloco_id)
+        resultados.append(resultado)
+    return resultados
+
+
+# ============ EPS ============
+
+@app.get("/api/eps")
+async def listar_eps():
+    """Lista todos os produtos EPS disponiveis"""
+    dados = carregar_eps()
+    return dados
+
+
+@app.get("/api/eps/calcular")
+async def calcular_placa_eps(area: float, produto_id: int = 1):
+    """
+    Calcula quantidade de placas EPS para uma area
+
+    - **area**: area em metros quadrados
+    - **produto_id**: tipo do EPS (1=30mm, 2=40mm, 3=100mm)
+    """
+    resultado = calcular_eps(area, produto_id)
+    return resultado
+
+
+@app.get("/api/eps/calcular-todos")
+async def calcular_todos_eps(area: float):
+    """
+    Calcula quantidade de EPS para todos os tipos
+
+    - **area**: area em metros quadrados
+    """
+    resultados = []
+    for produto_id in [1, 2, 3]:
+        resultado = calcular_eps(area, produto_id)
         resultados.append(resultado)
     return resultados
 

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora EPS - Isolamento Termico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .nav a.active {
+            background: white;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(46, 125, 50, 0.4);
+        }
+
+        .resultado {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: #f1f8e9;
+            border-radius: 10px;
+            border-left: 5px solid #4caf50;
+        }
+
+        .resultado.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .resultado h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        .resultado-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .resultado-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .resultado-item .valor {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .resultado-item .label {
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+
+        .comparativo {
+            margin-top: 30px;
+            overflow-x: auto;
+        }
+
+        .comparativo table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .comparativo th, .comparativo td {
+            padding: 12px 8px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparativo th {
+            background: #2e7d32;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .comparativo tr:hover {
+            background: #f5f5f5;
+        }
+
+        .frete-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 10px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .frete-info h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+
+        .frete-table {
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .frete-table td {
+            padding: 5px 10px;
+        }
+
+        .info-eps {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #1b5e20;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+
+        .tag-antichama {
+            display: inline-block;
+            background: #ff5722;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html">Blocok</a>
+            <a href="eps.html" class="active">EPS Isolamento</a>
+        </nav>
+
+        <header>
+            <h1>Calculadora EPS</h1>
+            <p>Placas de isolamento termico e acustico <span class="tag-antichama">ANTICHAMA</span></p>
+        </header>
+
+        <div class="card">
+            <h2>Area a Isolar</h2>
+
+            <div class="form-group">
+                <label for="area">Area em metros quadrados (m2)</label>
+                <input type="number" id="area" placeholder="Ex: 120" step="0.5" min="0.5" value="120">
+            </div>
+
+            <div class="form-group">
+                <label for="eps">Espessura do EPS</label>
+                <select id="eps">
+                    <option value="0">Comparar todas as espessuras</option>
+                    <option value="1">EPS 30mm - Isolamento basico (R$ 7,95/placa)</option>
+                    <option value="2">EPS 40mm - Isolamento medio (R$ 10,60/placa)</option>
+                    <option value="3">EPS 100mm - Isolamento alto (R$ 26,50/placa)</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="calcular()">Calcular</button>
+
+            <div id="resultado" class="resultado">
+                <!-- Resultado sera inserido aqui -->
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Tabela de Frete</h2>
+            <p style="margin-bottom: 15px; color: #666;">Frete referencia: Embu-Guacu/SP para Campinas/SP</p>
+
+            <div class="frete-info">
+                <table class="frete-table">
+                    <tr>
+                        <td><strong>R$ 1.000 - R$ 3.000</strong></td>
+                        <td>Frete: R$ 960,00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>R$ 3.000 - R$ 5.000</strong></td>
+                        <td>Frete: R$ 640,00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>R$ 5.000 - R$ 8.000</strong></td>
+                        <td>Frete: R$ 350,00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acima de R$ 8.000</strong></td>
+                        <td style="color: #2e7d32; font-weight: bold;">FRETE GRATIS!</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Sobre o EPS</h2>
+            <p><strong>EPS Tipo 1</strong> - Poliestireno Expandido com densidade 9-10 kg/m3</p>
+
+            <div class="info-eps">
+                <strong>Caracteristicas:</strong><br>
+                - Antichama (seguranca contra incendio)<br>
+                - Isolamento termico (reduz calor/frio)<br>
+                - Isolamento acustico<br>
+                - Leve e facil de instalar<br>
+                - Placa padrao: 1000x500mm (0,5m2 por placa)<br><br>
+                <strong>Aplicacoes:</strong> Telhados, paredes, forros, camaras frias, divisorias
+            </div>
+        </div>
+
+        <footer>
+            <p>Fornecedor: Fabrica EPS Embu-Guacu | Contato: Jessica</p>
+            <p>Endereco: Estrada Municipal Basilio Vieira, 640 - Embu-Guacu/SP</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dados dos produtos EPS
+        const produtos = [
+            { id: 1, nome: "EPS 30mm", espessura: 30, preco: 7.95, preco_m2: 15.90, isolamento: "Basico", aplicacao: "Forros, divisorias leves" },
+            { id: 2, nome: "EPS 40mm", espessura: 40, preco: 10.60, preco_m2: 21.20, isolamento: "Medio", aplicacao: "Telhados, paredes" },
+            { id: 3, nome: "EPS 100mm", espessura: 100, preco: 26.50, preco_m2: 53.00, isolamento: "Alto", aplicacao: "Camaras frias, industrial" }
+        ];
+
+        // Area de cada placa: 100x50cm = 0.5m2
+        const AREA_PLACA = 0.5;
+        const DESCONTO_AVISTA = 3; // 3%
+
+        // Tabela de frete
+        const tabelaFrete = [
+            { min: 0, max: 1000, frete: null, obs: "Consultar" },
+            { min: 1000, max: 3000, frete: 960 },
+            { min: 3000, max: 5000, frete: 640 },
+            { min: 5000, max: 8000, frete: 350 },
+            { min: 8000, max: Infinity, frete: 0, obs: "Frete gratis" }
+        ];
+
+        function calcularFrete(valor) {
+            for (let faixa of tabelaFrete) {
+                if (valor >= faixa.min && valor < faixa.max) {
+                    return { valor: faixa.frete, obs: faixa.obs || "" };
+                }
+            }
+            return { valor: 0, obs: "Frete gratis" };
+        }
+
+        function calcular() {
+            const area = parseFloat(document.getElementById('area').value);
+            const epsId = parseInt(document.getElementById('eps').value);
+
+            if (!area || area <= 0) {
+                alert('Por favor, informe a area em m2.');
+                return;
+            }
+
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (epsId === 0) {
+                mostrarComparativo(area);
+            } else {
+                const produto = produtos.find(p => p.id === epsId);
+                mostrarResultadoUnico(area, produto);
+            }
+
+            resultadoDiv.classList.add('show');
+        }
+
+        function mostrarResultadoUnico(area, produto) {
+            const quantidade = Math.ceil(area / AREA_PLACA);
+            const custoPlacas = quantidade * produto.preco;
+            const custoAvista = custoPlacas * (1 - DESCONTO_AVISTA / 100);
+            const freteInfo = calcularFrete(custoPlacas);
+            const custoTotal = custoPlacas + (freteInfo.valor || 0);
+
+            let freteTexto = freteInfo.valor !== null
+                ? `R$ ${freteInfo.valor.toFixed(2)}`
+                : "Consultar";
+            if (freteInfo.obs) freteTexto += ` (${freteInfo.obs})`;
+
+            document.getElementById('resultado').innerHTML = `
+                <h3>Resultado - ${produto.nome}</h3>
+                <div class="resultado-grid">
+                    <div class="resultado-item">
+                        <div class="valor">${area} m2</div>
+                        <div class="label">Area Solicitada</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor">${quantidade}</div>
+                        <div class="label">Placas Necessarias</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor">R$ ${custoPlacas.toFixed(2)}</div>
+                        <div class="label">Custo Placas</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor">R$ ${custoAvista.toFixed(2)}</div>
+                        <div class="label">A Vista (3% desc)</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor">${freteTexto}</div>
+                        <div class="label">Frete Estimado</div>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="valor" style="color: #e65100;">R$ ${custoTotal.toFixed(2)}</div>
+                        <div class="label">TOTAL + FRETE</div>
+                    </div>
+                </div>
+                <div class="info-eps" style="margin-top: 20px;">
+                    <strong>Espessura:</strong> ${produto.espessura}mm |
+                    <strong>Isolamento:</strong> ${produto.isolamento} |
+                    <strong>Preco/placa:</strong> R$ ${produto.preco.toFixed(2)} |
+                    <strong>Preco/m2:</strong> R$ ${produto.preco_m2.toFixed(2)}<br>
+                    <strong>Aplicacao:</strong> ${produto.aplicacao}
+                </div>
+            `;
+        }
+
+        function mostrarComparativo(area) {
+            const quantidade = Math.ceil(area / AREA_PLACA);
+
+            let linhas = produtos.map(produto => {
+                const custoPlacas = quantidade * produto.preco;
+                const custoAvista = custoPlacas * (1 - DESCONTO_AVISTA / 100);
+                const freteInfo = calcularFrete(custoPlacas);
+                const custoTotal = custoPlacas + (freteInfo.valor || 0);
+
+                let freteTexto = freteInfo.valor !== null
+                    ? `R$ ${freteInfo.valor.toFixed(0)}`
+                    : "Consultar";
+
+                return `
+                    <tr>
+                        <td><strong>${produto.nome}</strong></td>
+                        <td>${produto.espessura}mm</td>
+                        <td>${produto.isolamento}</td>
+                        <td>${quantidade}</td>
+                        <td>R$ ${produto.preco.toFixed(2)}</td>
+                        <td>R$ ${custoPlacas.toFixed(2)}</td>
+                        <td>${freteTexto}</td>
+                        <td><strong>R$ ${custoTotal.toFixed(2)}</strong></td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('resultado').innerHTML = `
+                <h3>Comparativo - ${area} m2 (${quantidade} placas)</h3>
+                <div class="comparativo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Espessura</th>
+                                <th>Isolamento</th>
+                                <th>Qtd</th>
+                                <th>Preco/Un</th>
+                                <th>Subtotal</th>
+                                <th>Frete</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${linhas}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info-eps" style="margin-top: 20px;">
+                    <strong>Dica:</strong> Para pedidos acima de R$ 8.000, o frete e GRATIS!
+                    Considere comprar em maior quantidade ou juntar com outros para economizar no frete.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{
+  "fabricante": {
+    "nome": "Fábrica EPS Embu-Guaçu",
+    "contato": "Jéssica",
+    "endereco": "Estrada Municipal Basílio Vieira, nº 640 - Congonhal - Embu-Guaçu - CEP 06915020",
+    "prazo_entrega": "2 dias úteis após confirmação",
+    "desconto_avista_percent": 3,
+    "condicao_pagamento": "50% antecipado via PIX + restante em até 3-5x no crédito"
+  },
+  "frete": {
+    "origem": "Embu-Guaçu/SP",
+    "destino_referencia": "Campinas/SP",
+    "tabela": [
+      {"valor_min": 0, "valor_max": 1000, "frete": null, "obs": "Consultar"},
+      {"valor_min": 1000, "valor_max": 3000, "frete": 960},
+      {"valor_min": 3000, "valor_max": 5000, "frete": 640},
+      {"valor_min": 5000, "valor_max": 8000, "frete": 350},
+      {"valor_min": 8000, "valor_max": null, "frete": 0, "obs": "Frete grátis"}
+    ]
+  },
+  "material": {
+    "nome": "EPS Tipo 1",
+    "descricao": "Poliestireno Expandido para isolamento térmico e acústico",
+    "densidade_kg_m3": "9-10",
+    "antichama": true,
+    "aplicacao": "Isolamento térmico/acústico de telhados, paredes e lajes"
+  },
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "EPS 30mm",
+      "espessura_mm": 30,
+      "largura_mm": 1000,
+      "altura_mm": 500,
+      "area_m2": 0.5,
+      "preco_unitario": 7.95,
+      "preco_m2": 15.90,
+      "isolamento": "Básico",
+      "aplicacao": "Isolamento térmico básico, forros, divisórias leves"
+    },
+    {
+      "id": 2,
+      "nome": "EPS 40mm",
+      "espessura_mm": 40,
+      "largura_mm": 1000,
+      "altura_mm": 500,
+      "area_m2": 0.5,
+      "preco_unitario": 10.60,
+      "preco_m2": 21.20,
+      "isolamento": "Médio",
+      "aplicacao": "Isolamento térmico médio, telhados, paredes"
+    },
+    {
+      "id": 3,
+      "nome": "EPS 100mm",
+      "espessura_mm": 100,
+      "largura_mm": 1000,
+      "altura_mm": 500,
+      "area_m2": 0.5,
+      "preco_unitario": 26.50,
+      "preco_m2": 53.00,
+      "isolamento": "Alto",
+      "aplicacao": "Isolamento térmico alto desempenho, câmaras frias, telhados industriais"
+    }
+  ]
+}

@@ -3,7 +3,12 @@
     "allow": [
       "Bash(copy \"C:\\\\Users\\\\admin\\\\AppData\\\\Local\\\\Packages\\\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\\\LocalState\\\\sessions\\\\E902C37AF3683D3B7E08AE121CE98CD983558356\\\\transfers\\\\2026-02\\\\catalogo-blocoksaopaulo-2025.pdf\" \"c:\\\\Projects\\\\construcao_materiais_calc\\\\catalogos\\\\blocok-saopaulo-2025.pdf\")",
       "Bash(start \"\" \"c:/Projects/construcao_materiais_calc/frontend/index.html\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(gh auth status:*)",
+      "Bash(gh repo create:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(start \"\" \"c:/Projects/construcao_materiais_calc/frontend/eps.html\")"
     ]
   }
 }
